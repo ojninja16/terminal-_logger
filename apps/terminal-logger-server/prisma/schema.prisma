@@ -1,0 +1,34 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Terminal {
+  createdAt   DateTime            @default(now())
+  description String?
+  id          String              @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  status      EnumTerminalStatus?
+  updatedAt   DateTime            @updatedAt
+}
+
+model LogEntry {
+  createdAt DateTime            @default(now())
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  message   String?
+  source    EnumLogEntrySource?
+  timestamp DateTime?
+  updatedAt DateTime            @updatedAt
+}
+
+enum EnumTerminalStatus {
+  Option1
+}
+
+enum EnumLogEntrySource {
+  Option1
+}
